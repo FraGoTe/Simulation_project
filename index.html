@@ -1,0 +1,182 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+@FraGoTe
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>::Números Aleatorios::</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <script src="js/jquery-1.7.2.js" type="text/javascript"></script>  
+		<script src="js/funciones.js" type="text/javascript"></script>   		
+        <script src="js/jquery-ui-1.8.19.custom.min.js" type="text/javascript"></script> 
+        <script src="js/bootstrap.js" type="text/javascript"></script>
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+		<link rel="stylesheet" type="text/css" href="css/smoothness/jquery-ui-1.8.19.custom.css" />
+        <script>
+            $(document).ready(function(){
+                $("#boton").removeAttr('disabled');
+            });
+            var flag=0;
+            function run(){
+                var time;
+                var i;
+                var cont;
+                var bgcolor;
+                var newbg;
+                var onbg;
+                var clase;
+                var y;
+                var hasta=Math.floor((Math.random()*48)+24);
+                i=1;
+                cont=1;
+                var id;
+                time=setInterval(function (){
+                    $("#boton").attr('disabled','disabled');
+                    if(flag!=0){ i=flag; flag=0;}
+                    bgcolor=$("#sq"+i).css('background-image');
+                    newbg=bgcolor.split(',');
+                    onbg=newbg[0]+",rgb(0, 0, 0),"+newbg[4]+","+newbg[5]+","+newbg[6];
+                    $("#sq"+i).css('background-image',onbg);
+                    y=i-1;
+                    if(i==1) y=24;
+                    clase=$("#sq"+(y)).attr('class');
+                    $("#sq"+(y)).css('background-image','');
+                    
+                    if(cont==hasta){ 
+                        flag=i;
+                        $("#boton").removeAttr('disabled');
+                        valida(i);
+                        clearInterval(time);
+                    }
+                    i++;
+                    if(i==25)i=1;
+                    cont++;
+                }, 50);
+            }
+            
+            function valida(i){
+                var rand=$("#sq"+i).attr('class');
+                var selectd=$(".active").attr('id');
+                var array;
+                array=rand.split('-');
+                array=array[1].split(' ');
+                if(selectd==array[0]){
+                       alertModal('Acertaste-Felicitaciones has ganado!!!!! :D');
+                    }else{
+					alertModal('Que pena-Sigue Intentando :(');
+                    }
+            }
+            
+            var contSel=0;
+            function fgtchange(id){
+                var dis=$("#"+id).attr("class");
+                var clase;
+                var arr;
+                arr=dis.split('active');
+                contSel=(!($(".active").attr('id'))?0:1);
+				//alert(contSel);
+                if( arr.length>1){
+                   $("#"+id).attr("class",arr[0]);
+                   contSel--;
+                }else{
+                        if(contSel>0){
+								alertModal('Error!-No puedes seleccionar m&aacute;s de un color','alert');
+                            return false;
+                        }
+                        clase=$("#"+id).attr("class");
+                        $("#"+id).attr("class",clase+" active");
+                    }
+            }
+        </script>
+        <style type="text/css">
+            .alto{
+                height: 100px;
+                width: 80px;
+            } 
+            .hw{
+                height: 30px;
+                width: 80px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="well" style="width: 800px;  margin: 0 auto 0 auto; margin-top: 25px;">
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <td id="sq1" class="btn-danger alto"></td>
+                        <td id="sq2" class="btn-info alto"></td>
+                        <td id="sq3" class="btn-primary alto"></td>
+                        <td id="sq4" class="btn-success alto"></td>
+                        <td id="sq5" class="btn-warning alto"></td>
+                        <td id="sq6" class="btn-info alto"></td>
+                        <td id="sq7" class="btn-primary alto"></td>
+                    </tr>
+                    <tr>
+                        <td id="sq24" class="btn-warning alto"></td>
+                        <td COLSPAN=5 ROWSPAN=5></td>
+                        <td id="sq8" class="btn-danger alto"></td>
+                    </tr>
+                    <tr>
+                        <td id="sq23" class="btn-primary alto"></td>
+                        <td id="sq9" class="btn-success alto"></td>
+                    </tr>
+                    <tr>
+                        <td id="sq22" class="btn-danger alto"></td>
+                        <td id="sq10" class="btn-inverse alto"></td>
+                    </tr>
+                    <tr>
+                        <td id="sq21" class="btn-primary alto"></td>
+                        <td id="sq11" class="btn-danger alto"></td>
+                    </tr>
+                    <tr>
+                        <td id="sq20" class="btn-info alto"></td>
+                        <td id="sq12" class="btn-primary alto"></td>
+                    </tr>
+                    <tr>
+                        <td id="sq19" class="btn-success alto"></td>
+                        <td id="sq18" class="btn-warning alto"></td>
+                        <td id="sq17" class="btn-inverse alto"></td>
+                        <td id="sq16" class="btn-primary alto"></td>
+                        <td id="sq15" class="btn-danger alto"></td>
+                        <td id="sq14" class="btn-info alto"></td>
+                        <td id="sq13" class="btn-success alto"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <br/>
+        <div class="well" style="width: 500px; margin: 0 auto 0 auto;">
+            <table>
+                <tr>
+                    <td COLSPAN=6>
+                        <button id="boton" class="btn hw" onclick="run();" style="float: right;">Jugar</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button id="inverse" onclick="fgtchange('inverse');" class="btn btn-inverse hw" >Black</button>
+                    </td>
+                    <td>
+                        <button  id="danger" onclick="fgtchange('danger');" class="btn btn-danger hw">Red</button>
+                    </td>
+                    <td>   
+                        <button  id="warning" onclick="fgtchange('warning');" class="btn btn-warning hw">Yellow</button>
+                    </td>
+                    <td> 
+                        <button  id="success" onclick="fgtchange('success');" class="btn btn-success hw">Green</button>
+                    </td>
+                    <td>   
+                        <button  id="info" onclick="fgtchange('info');" class="btn btn-info hw">Sky blue</button>
+                    </td>
+                    <td>  
+                        <button  id="primary" onclick="fgtchange('primary');" class="btn btn-primary hw">Blue</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </body>
+</html>

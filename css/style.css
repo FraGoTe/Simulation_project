@@ -1,0 +1,15 @@
+/* 
+    Document   : style
+    Created on : 16/04/2012, 11:18:06 PM
+    Author     : FraGoTe
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+body{
+    background-image: url('../img/bg.jpg');
+}
