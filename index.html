@@ -15,82 +15,6 @@ and open the template in the editor.
         <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="css/style.css" />
 		<link rel="stylesheet" type="text/css" href="css/smoothness/jquery-ui-1.8.19.custom.css" />
-        <script>
-            $(document).ready(function(){
-                $("#boton").removeAttr('disabled');
-            });
-            var flag=0;
-            function run(){
-                var time;
-                var i;
-                var cont;
-                var bgcolor;
-                var newbg;
-                var onbg;
-                var clase;
-                var y;
-                var hasta=Math.floor((Math.random()*48)+24);
-                i=1;
-                cont=1;
-                var id;
-                time=setInterval(function (){
-                    $("#boton").attr('disabled','disabled');
-                    if(flag!=0){ i=flag; flag=0;}
-                    bgcolor=$("#sq"+i).css('background-image');
-                    newbg=bgcolor.split(',');
-                    onbg=newbg[0]+",rgb(0, 0, 0),"+newbg[4]+","+newbg[5]+","+newbg[6];
-                    $("#sq"+i).css('background-image',onbg);
-                    y=i-1;
-                    if(i==1) y=24;
-                    clase=$("#sq"+(y)).attr('class');
-                    $("#sq"+(y)).css('background-image','');
-                    
-                    if(cont==hasta){ 
-                        flag=i;
-                        $("#boton").removeAttr('disabled');
-                        valida(i);
-                        clearInterval(time);
-                    }
-                    i++;
-                    if(i==25)i=1;
-                    cont++;
-                }, 50);
-            }
-            
-            function valida(i){
-                var rand=$("#sq"+i).attr('class');
-                var selectd=$(".active").attr('id');
-                var array;
-                array=rand.split('-');
-                array=array[1].split(' ');
-                if(selectd==array[0]){
-                       alertModal('Acertaste-Felicitaciones has ganado!!!!! :D');
-                    }else{
-					alertModal('Que pena-Sigue Intentando :(');
-                    }
-            }
-            
-            var contSel=0;
-            function fgtchange(id){
-                var dis=$("#"+id).attr("class");
-                var clase;
-                var arr;
-                arr=dis.split('active');
-                contSel=(!($(".active").attr('id'))?0:1);
-				//alert(contSel);
-                if( arr.length>1){
-                   $("#"+id).attr("class",arr[0]);
-                   contSel--;
-                }else{
-                        if(contSel>0){
-								alertModal('Error!-No puedes seleccionar m&aacute;s de un color','alert');
-                            return false;
-                        }
-                        clase=$("#"+id).attr("class");
-                        $("#"+id).attr("class",clase+" active");
-                    }
-            }
-        </script>
         <style type="text/css">
             .alto{
                 height: 100px;
@@ -150,10 +74,20 @@ and open the template in the editor.
         </div>
         <br/>
         <div class="well" style="width: 500px; margin: 0 auto 0 auto;">
+             <script>
+                    function ask(){
+                       var text = " <fieldset>\n\
+                                      <legend>Tipo de Juego</legend> \n\
+                                           <input id='kind' type='radio' /> uno         \n\
+                                            <input id='kind' type='radio' /> muchos        \n\
+                                     </fieldset>  \n\  ";
+                        openBox(text, 'modal', '', 200, 100);
+                    }
+                </script>
             <table>
                 <tr>
                     <td COLSPAN=6>
-                        <button id="boton" class="btn hw" onclick="run();" style="float: right;">Jugar</button>
+                        <button id="boton" class="btn hw" onclick="ask();" style="float: right;">Jugar</button>
                     </td>
                 </tr>
                 <tr>
@@ -178,5 +112,6 @@ and open the template in the editor.
                 </tr>
             </table>
         </div>
+        <div id="modal" title="Francis-Gonzales.info"></div>
     </body>
 </html>
